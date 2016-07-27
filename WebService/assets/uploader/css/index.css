@@ -1,0 +1,363 @@
+@charset "utf-8";
+/* CSS Layout */
+/* 清除内外边距 */
+body, h1, h2, h3, h4, h5, h6, hr, p, /* structural elements 结构元素 */ dl, dt, dd, ul, ol, li, /* list elements 列表元素 */ pre, /* text formatting elements 文本格式元素 */ button, input, textarea, /* form elements 表单元素 */ th, td { /* table elements 表格元素 */ margin: 0; padding: 0;-webkit-appearance:inherit; }
+/* 设置默认字体 */
+body, button, input, textarea, pre { font: 14px/1 "微软雅黑", Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif; /* 用 ascii 字符表示，使得在任何编码下都无问题 */-webkit-appearance:inherit; }
+select { font: 14px/1 "微软雅黑", Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
+li, ol { list-style: none;}
+a, a:visited, a:hover, a:active {
+    text-decoration: none;
+}
+a {
+    outline: none;
+    color: #0487e2;
+}
+body {
+    color: #666;
+    background-color: #f5f5f5;
+    position: relative;
+    min-height: 100%;
+}
+img {
+    border: none;
+}
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom:1;}
+.ellipsis { white-space: nowrap; text-overflow: ellipsis; overflow:hidden;}
+/*msg_tip*/
+.msg_tip { position: fixed; _position: absolute; z-index: 5000; left:-500px; top: -500px;/*width: 100%; height: 100%; min-width: 480px; min-height: 240px;*/ text-align: center; overflow: hidden; }
+.msg_tip dl { position: relative; padding:5px;}
+.msg_tip dt, .msg_tip dd { height: 30px;}
+.msg_tip dt { position: absolute; top: 0; left: 0; width:100%; height:100%; padding:5px; background: #000; opacity: 0.4; filter: alpha(opacity=40); }
+.msg_tip dd { position: relative; left:0; top:0; font-size: 18px; line-height: 30px; background: #fff; min-width: 60px; min-height: 30px; padding: 15px 25px; }
+/*文件上传*/
+.up-cont {
+    position: relative;
+    width: 198px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0;
+    font-size: 12px;
+    text-align: center;
+    overflow: hidden;
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #ccd5df;
+    background-color: #fbfbfb;
+    margin: 34px 0 0 10px;
+}
+.up-cont:hover{text-decoration: none;}/*IE7*/
+.up-cont .up-btn {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    cursor: pointer;
+}
+.fa-plus, .up-cont .up-text {
+    display: inline-block;
+    height: 32px;
+    vertical-align: top;
+}
+.fa-plus {
+    width: 24px;
+    background: url("image/icon.png") 0 -1px no-repeat;
+}
+.drag_container {
+    width: 128px;
+    padding: 140px 35px 42px;
+    margin: 34px auto 0;
+    text-align: center;
+    background: #f2f9fd url("image/drag.png") center 50px no-repeat;
+    border: 1px dotted #ccd5df;
+}
+.up-cont .up-text {
+    color: #666;
+    cursor: pointer;
+}
+.up-cont .up-doing, .up-cont .up-forbid {
+    display: none;
+}
+.up-ing .up-doing, .up-dis .up-forbid {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    background: #afafaf;
+    display: inline-block;
+}
+.upload-info {
+    text-align: left;
+}
+.upload-info .progress {
+    width: 128px;
+    overflow: hidden;
+    height: 16px;
+    text-align: left;
+    line-height: 0;
+    font-size: 0;
+    background-color: #e7e7e7;
+    display: inline-block;
+    vertical-align: middle;
+}
+.upload-info .progress-bar {
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 16px;
+    color: #ff0000;
+    text-align: right;
+    background-color: #0487e2;
+    display: inline-block;
+}
+.upload-info .file-cancel {
+    color: #0487e2;
+    line-height: 16px;
+    font-weight: bold;
+    margin: 0 0 0 5px;
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+}
+.upload-info .file-cancel:hover {
+    color: #036ad8;
+}
+.upload-info .file-remove{/*删除已上传文件*/
+    /*margin-left: 10px;*/
+    /*color: #666;*/
+}
+.upload-multi {
+    padding: 34px;
+}
+.upload-multi ol { font-weight: bold;}
+.upload-multi li {
+    height: 24px;
+    padding: 5px;
+    line-height: 24px;
+    overflow: hidden;
+    float: left;
+}
+.upload-multi .file-name {
+    width: 230px;
+    padding-left: 30px;
+}
+.upload-multi .file-size {
+    width: 110px;
+    text-align: center;
+}
+.upload-multi .file-progress {
+    width: 160px;
+    text-align: center;
+}
+.upload-multi .file-loaded {
+    width: 110px;
+    text-align: center;
+}
+.upload-multi .file-speed {
+    width: 110px;
+    text-align: center;
+}
+.upload-multi .file-remove-wrapper {
+    width: 110px;
+    text-align: center;
+}
+.upload-multi .row-multi {
+    border: 1px solid #ccd5df;
+    border-top: none;
+}
+.upload-multi .row-multi:first-child {
+    background: #fbfbfb;
+    border-top: 1px solid #ccd5df;
+}
+.header {
+    background-color: #fff;
+    border-bottom: 2px solid #036ad8;
+}
+.head-logo, .layout {
+    width: 1220px;
+    min-height: 100px;
+    margin: 0 auto;
+    text-align: left;
+}
+.head-logo .logo {
+    margin: 15px 0 0;
+    float: left;
+}
+.head-title {
+    font-size: 30px;
+    line-height: 36px;
+    border-left: 1px solid #ccd5df;
+    padding-left: 15px;;
+    margin: 40px 0 0 20px;
+    float: left;
+}
+.layout { margin-top: 18px;}
+.layout .side-column, .layout .main { min-height: 500px; background-color: #fff; float: left;}
+.layout .side-column { width: 220px;}
+.layout .main { width: 990px; margin-left: 10px; position: relative;}
+.popup_filter, .popup_layer { display: none;}
+.popup_filter {
+    position: fixed;
+    _position: absolute;
+    z-index: 200;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+.popup_layer {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -274px;
+    z-index: 210;
+    width: 548px;
+    height: auto;
+    text-align: left;
+    padding: 0;
+    background: #fff;
+    overflow: hidden;
+}
+.popup_layer .popup_panel {
+    position: relative;
+    overflow: hidden;
+}
+.popup_layer .popup_head {
+    position: relative;
+    background: #cdd5e0;
+}
+.popup_layer .close {
+    position: absolute;
+    z-index: 10;
+    top: 1px;
+    right: 0;
+    width: 34px;
+    height: 34px;
+    background: url(image/icon.png) 10px -40px no-repeat;
+    display: block;
+}
+.popup_layer .popup_head h3 {
+    color: #4d3636;
+    font-size: 14px;
+    height: 34px;
+    padding: 0 34px 0 20px;
+    line-height: 34px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: normal;
+    overflow: hidden;
+    display: block;
+}
+.popup_layer .popup_main {
+    white-space: normal;
+    overflow: hidden;
+}
+.popup_layer .popup_foot {
+    padding: 10px 0 20px;
+    text-align: center;
+}
+.popup_main .msg {
+    padding: 70px 20px 45px;
+    overflow: hidden;
+    text-align: center;
+}
+.upload-remind {
+    padding: 15px 20px;
+}
+.upload-remind .remind-head {
+    color: #ff0000;
+    line-height: 24px;
+    padding-bottom: 10px;
+}
+.upload-remind .img, .upload-remind img {
+    text-align: center;
+    max-width: 100%;
+    min-height: 100px;
+    overflow: hidden;
+}
+.upload-remind .btns-center {
+    margin-top: 30px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+.upload-remind .img img {
+    max-width: 60%;
+}
+.upload-remind .remind-list {
+    padding: 15px 0;
+}
+.upload-remind .remind-btm {
+    padding-right: 20px;
+    display: none;
+}
+.upload-remind .remind-list img {
+    display: none;
+}
+.upload-remind .remind-list dd.shw .remind-btm {
+    text-align: right;
+    display: block;
+}
+.upload-remind .remind-list dd.shw img {
+    display: block;
+}
+.btn, .ok, .no {
+    color: #fff;
+    font-size: 14px;
+    line-height: 34px;
+    text-align: center;
+    width: 128px;
+    height: 34px;
+    margin-left: 15px;
+    background: #0487e2;
+    overflow: hidden;
+    text-decoration: none;
+    vertical-align: middle;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: #036ad8;
+}
+.btn-warning {
+    background: #ff7800;
+}
+.btn-warning:hover {
+    background: #ff5b00;
+}
+a.dis, span.dis {
+    background-color: #afafaf !important;
+    cursor: default;
+}
+.bottom-wrap {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 40px;
+    text-align: center;
+}
+.empty_content {
+    position: absolute;
+    top: 116px;
+    padding-left: 50px;
+    background: url("image/icon.png") -43px 12px no-repeat;
+    margin: 0 0 0 106px;
+}
+.empty_content p { line-height: 28px; color: #333;}
+.design_tips, .print_tips { display: none;}
+.format_remind { width: 900px; margin-left: -450px;}
+p.success {
+    text-align: center;
+    padding-top: 50px;
+    font-size: 18px;
+    font-weight: bold;
+}

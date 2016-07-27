@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>文件上传</title>
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+<body>
+<div class="header">
+	<div class="head-logo">
+		<a href="http://www.ininin.com" target="_blank" class="logo" title=""></a>
+		<span class="head-title">从电脑上传</span>
+	</div>
+</div>
+<div class="layout clearfix">
+	<div class="side-column">
+		<!--<div id="drag_container" class="drag_container">拖拽到此处上传</div>-->
+		<a id="file_upload-cont" class="up-cont">
+			<span id="file_upload" class="up-btn">
+				<i class="fa fa-plus"></i>
+				<span class="up-text"></span>
+			</span>
+			<span class="up-doing">正在上传...</span>
+			<span class="up-forbid"></span>
+		</a>
+	</div>
+	<div class="main">
+		<div id="file_upload-info" class="upload-info row-multi upload-multi">
+			<ol class="clearfix row-multi"><li class="file-name ellipsis">文件名</li><li class="file-size">文件大小</li><li class="file-progress">上传进度</li><li class="file-loaded">已上传</li><li class="file-speed">上传速度</li><li class="file-remove-wrapper">操作</li></ol>
+		</div>
+		<div class="empty_content">
+			<p class="design_tips">还没有添加本地文件，请点击“选择本地文件”<!--或直接拖拽--><br />您可上传 txt、jpg、png、gif、psd、ai、cdr、eps、ppt、word、excel、pdf、tiff、rar、zip、7z格式的文件<br />(温馨提示：您最多只能选择5个设计素材，若有多个子文件，请打包后上传）</p>
+			<p class="print_tips">还没有添加本地文件，请点击“选择本地文件”<!--或直接拖拽--><br />您可上传 jpg、png、gif、psd、ai、cdr、eps、ppt、word、excel、pdf、tiff、rar、zip、7z格式的文件<br />(温馨提示：您最多只能选择一个印刷稿件，若有多个子文件，请打包后上传）</p>
+		</div>
+		<div class="bottom-wrap">
+			<a class="btn dis" id="save_upload">保存上传</a>
+		</div>
+	</div>
+</div>
+<div id="popup_filter" class="popup_filter"></div>
+<div id="msg_tips" class="popup_layer">
+	<div class="popup_panel">
+		<div class="popup_head">
+			<a class="close" href="javascript:;" title="关闭"></a>
+			<h3></h3>
+		</div>
+		<div class="popup_main">
+			<div class="msg">您最多只能上传5个设计素材，若有多个子文件，请打包后上传。</div>
+		</div>
+	</div>
+	<div class="popup_foot">
+		<a class="no" href="javascript:;">关闭</a>
+	</div>
+</div>
+<div id="format_remind" class="popup_layer format_remind">
+	<div class="popup_panel">
+		<div class="popup_head">
+			<a class="close" href="javascript:;" title="关闭"></a>
+			<h3>选择印刷文件</h3>
+		</div>
+		<div class="popup_main" id="popup_main"></div>
+	</div>
+</div>
+<script id="template_remind" type="text/template">
+	<div class="upload-remind">
+		{{if fileType==='ai'}}
+		<div class="remind-head">
+			<p>您上传的印刷文件可能包含源文件外的链接图片和特殊字体，为保证印刷质量和节约您的宝贵时间，建议您保存ai文件时勾选“创建兼容性PDF”选框、将文字转曲、并将链接的图片嵌入到ai文件中。</p>
+		</div>
+		<div class="img">
+			<img src="image/uploader/ai/101.jpg" />
+		</div>
+		<dl class="remind-list">
+			<dd>
+				<a class="remind-show" href="javascript:;">点击查看AI文件嵌入图片、文字转曲、勾选“创建兼容性PDF”步骤&gt;&gt;</a>
+				<img src="image/uploader/ai/201.jpg" />
+				<div class="remind-btm">
+					<a class="remind-hide" href="javascript:;">收起</a>
+				</div>
+			</dd>
+		</dl>
+		{{else if fileType==='cdr'}}
+		<div class="remind-head">您上传的印刷文件可能包含特殊字体，为保证印刷质量和节约您的宝贵时间，建议您检查是否在保存cdr文件时已将特殊字体嵌入源文件中。</div>
+		<div class="img">
+			<img src="image/uploader/cdr/101.jpg" />
+		</div>
+		<dl class="remind-list">
+			<dd>
+				<a class="remind-show" href="javascript:;">点击查看cdr文件嵌入字体的步骤&gt;&gt;</a>
+				<img src="image/uploader/cdr/201.jpg" />
+				<div class="remind-btm">
+					<a class="remind-hide" href="javascript:;">收起</a>
+				</div>
+			</dd>
+		</dl>
+		{{else if fileType==='eps'}}
+		<div class="remind-head">您上传的印刷文件可能包含源文件外的链接图片和特殊字体，为保证印刷质量和节约您的宝贵时间，建议您保存eps文件时将文字嵌入文件中、且将文字转曲、并将链接的图片嵌入到文件中。</div>
+		<div class="img">
+			<img src="image/uploader/eps/101.jpg" />
+		</div>
+		<dl class="remind-list">
+			<dd>
+				<a class="remind-show" href="javascript:;">点击查看eps文件嵌入字体的步骤&gt;&gt;</a>
+				<img src="image/uploader/eps/201.jpg" />
+				<div class="remind-btm">
+					<a class="remind-hide" href="javascript:;">收起</a>
+				</div>
+			</dd>
+			<dd>
+				<a class="remind-show" href="javascript:;">点击查看eps文件进行文字转曲的步骤&gt;&gt;</a>
+				<img src="image/uploader/eps/202.jpg" />
+				<div class="remind-btm">
+					<a class="remind-hide" href="javascript:;">收起</a>
+				</div>
+			</dd>
+			<dd>
+				<a class="remind-show" href="javascript:;">点击查看eps文件进行嵌入图片的步骤&gt;&gt;</a>
+				<img src="image/uploader/eps/203.jpg" />
+				<div class="remind-btm">
+					<a class="remind-hide" href="javascript:;">收起</a>
+				</div>
+			</dd>
+		</dl>
+		{{else if fileType==='indd'}}
+		<div class="remind-head">您上传的印刷文件可能包含源文件外的链接图片和特殊字体，为保证印刷质量和节约您的宝贵时间，建议您检查是否需要将链接图片和字体文件与源文件（indd）一起打包上传。</div>
+		<div class="img">
+			<img src="image/uploader/indd/101.jpg" />
+		</div>
+		<dl class="remind-list">
+			<dd>
+				<a class="remind-show" href="javascript:;">点击查看打包indd文件用到的字体、链接图的步骤&gt;&gt;</a>
+				<img src="image/uploader/indd/201.jpg" />
+				<div class="remind-btm">
+					<a class="remind-hide" href="javascript:;">收起</a>
+				</div>
+			</dd>
+		</dl>
+		{{else if fileType==='jpg_png_pdf_gif'}}
+		<div class="remind-head">纸张裁切会有误差，建议您将重要内容全放在画布边缘3毫米之内。</div>
+		<div class="img">
+			<img src="image/uploader/jpg_png_pdf_gif/101.jpg" width="40%" />
+		</div>
+		{{else if fileType==='ppt_word_excel'}}
+		<div class="remind-head">您上传的文件可能包含特殊字体，直接传输可能会导致替换为普通字形，建议您导出PDF文件上传。</div>
+		<div class="img">
+			<img src="image/uploader/ppt_word_excel/101.jpg" />
+		</div>
+		<dl class="remind-list">
+			<dd>
+				<a class="remind-show" href="javascript:;">ppt、word文档、excel表格导出pdf文件步骤&gt;&gt;</a>
+				<img src="image/uploader/ppt_word_excel/201.jpg" />
+				<div class="remind-btm">
+					<a class="remind-hide" href="javascript:;">收起</a>
+				</div>
+			</dd>
+		</dl>
+		{{else if fileType==='psd_tiff'}}
+		<div class="remind-head">有正反面的文件请将正反面放入不同的psd或tiff文件中并将需要印刷的图层设置为可见（图层“眼睛”打开）；关闭可见功能的图层默认为您不需要印刷的图层。</div>
+		<div class="img">
+			<img src="image/uploader/psd_tiff/101.jpg" style="max-width: 80%" />
+		</div>
+		<dl class="remind-list">
+			<dd>
+				<a class="remind-show" href="javascript:;">点击查看psd或tiff文件打开或关闭图层的步骤&gt;&gt;</a>
+				<img src="image/uploader/psd_tiff/201.jpg" />
+				<div class="remind-btm">
+					<a class="remind-hide" href="javascript:;">收起</a>
+				</div>
+			</dd>
+		</dl>
+		{{else if fileType==='zip_rar_7z'}}
+		<div class="remind-head">温馨提示：一个订单的多个印刷商品，每个商品对应的印刷文件将分别进入审核与生产，为节约您宝贵时间和避免造成不必要的经济损失，请将各个商品对应的印刷文件对应分开上传，不建议您将所有商品打包一齐上传。</div>
+		<div class="img">
+			<img src="image/uploader/zip_rar_7z/101.jpg" />
+		</div>
+		{{/if}}
+		{{if uploaded==1}}
+		<div class="btns-center">
+			<a class="btn btn-primary" href="javascript:;">继续上传</a><a class="btn btn-warning" href="javascript:;">重新选择文件</a>
+		</div>
+		{{else}}
+		<div class="btns-center">
+			<a class="btn btn-primary" href="javascript:;">仍然选该文件</a><a class="btn btn-warning" href="javascript:;">重新选择文件</a><a class="btn btn-default" href="javascript:;">关 闭</a>
+		</div>
+		{{/if}}
+	</div>
+</script>
+<script type="text/javascript" src="scripts/libs/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="scripts/libs/template.js"></script>
+<script type="text/javascript" src="scripts/uploader/plupload.full.min.js"></script>
+<script type="text/javascript" src="scripts/uploader/qiniu-sdk.js"></script>
+<script type="text/javascript" src="scripts/uploader/main.js"></script>
+<script type="text/javascript" src="scripts/index.js"></script>
+</body>
+</html>
